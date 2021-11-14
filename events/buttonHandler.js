@@ -1,5 +1,5 @@
 module.exports = {
-    buttonHandler: function(interaction) { 
+    buttonHandler: function(interaction) {
         console.log("buttonHandler!");
         console.log(interaction);
         // interaction.id

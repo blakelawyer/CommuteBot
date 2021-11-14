@@ -4,7 +4,6 @@ module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
-		// Creates channels and categories for each guild I'm joined to.
 		client.guilds.fetch()
 			.then((guilds) => {
 				for(const [gid, gld] of guilds) { 
@@ -43,7 +42,10 @@ module.exports = {
 									chan.setParent(cat.id)
 								})
 							}
-						})						
+						})
+						.catch((ex) => {
+							console.log(ex)
+						})					
 					} else { 
 						console.log("driver-category exists, checking for driver-side")
 						if (!foundDriverSide) { 
@@ -52,6 +54,9 @@ module.exports = {
 							.then((chan) => {
 								chan.setParent(driverCatId)
 							})
+							.catch((ex) => {
+								console.log(ex)
+							})	
 						}
 					}
 
@@ -65,6 +70,9 @@ module.exports = {
 								.then((chan) => {
 									chan.setParent(cat.id)
 								})
+								.catch((ex) => {
+									console.log(ex)
+								})	
 							}
 						})						
 					} else { 
@@ -75,6 +83,9 @@ module.exports = {
 							.then((chan) => {
 								chan.setParent(rideCatId)
 							})
+							.catch((ex) => {
+								console.log(ex)
+							})	
 						}
 					}
 				}
@@ -82,9 +93,7 @@ module.exports = {
 			.catch((e) => {
 				console.log(e);
 			})
-
 		console.log(`Ready! Logged in as ${client.user.tag}`);
-
 	},
 };
 
@@ -93,6 +102,3 @@ module.exports = {
 // Create roles if they don't already exist
 	// Driver role
 	// Rider role
-// Check channels, create if don't exist
-	// Drivers
-	// Riders

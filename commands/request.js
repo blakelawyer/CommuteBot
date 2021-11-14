@@ -20,6 +20,7 @@ module.exports = {
 		// TODO Pre-schedule (v1.2)
 
 	async execute(interaction) {
+		console.log("Making request")
 		const curr_loc = interaction.options.get("current_location").value;
 		const dest_loc = interaction.options.get("destination_location").value;
 
@@ -30,55 +31,51 @@ module.exports = {
 			endLocation: dest_loc
 		});
 
-		ride.save(function(err,ride) {
-			
-			let embed = makeEmbed(ride);
-			let riderButtons = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setCustomId("cancel")
-					.setLabel("Cancel request")
-					.setStyle("DANGER")
-			)
-			interaction.reply({
-				content: "Ride requested!  We'll let you know when a driver has been assigned.", 
-				embeds: [embed],
-				components: [riderButtons],
-				ephemeral: true
-			}).then((msg) => { 
-				interaction.guild.channels.fetch()
-					.then((channels) => {
-						for(const [cid, chan] of channels) {
-							if (chan.type === "GUILD_TEXT" && chan.name === 'driver-side') { 
-								let buttons = new MessageActionRow()
-									.addComponents([
-										new MessageButton()
-											.setCustomId("accept")
-											.setLabel("Take Ride")
-											.setStyle("PRIMARY"),
-										new MessageButton()
-											.setCustomId("reject")
-											.setLabel("Reject")
-											.setStyle("DANGER")
-									])
-								chan.send({
-									embeds: [embed],
-									components: [buttons]
-								}).then((driverMessage) => { 
-									ride.driverMessageId = driverMessage.id
-									ride.requestMessageId = msg.id
-									ride.save();
-								})
-								break;
-							}
-						}
-					})
+		let embed = makeEmbed(ride);
+		let riderButtons = new MessageActionRow()
+		.addComponents(
+			new MessageButton()
+				.setCustomId("cancel")
+				.setLabel("Cancel request")
+				.setStyle("DANGER")
+		)
+		interaction.reply({
+			content: "Ride requested!  We'll let you know when a driver has been assigned.", 
+			embeds: [embed],
+			components: [riderButtons],
+			ephemeral: true,
+			fetchReply: true 
+		}).then((reply) => { 
+			console.log("Requested!")
+			console.log(reply)
+			ride.requestMessageId = reply.id
+			interaction.guild.channels.fetch()
+			.then((channels) => {
+				for(const [cid, chan] of channels) {
+					if (chan.type === "GUILD_TEXT" && chan.name === 'driver-side') { 
+						let buttons = new MessageActionRow()
+							.addComponents([
+								new MessageButton()
+									.setCustomId("accept")
+									.setLabel("Take Ride")
+									.setStyle("PRIMARY"),
+								new MessageButton()
+									.setCustomId("reject")
+									.setLabel("Reject")
+									.setStyle("DANGER")
+							])
+						chan.send({
+							embeds: [embed],
+							components: [buttons]
+						}).then((driverMessage) => { 
+							ride.driverMessageId = driverMessage.id
+							ride.save();
+						})
+						break;
+					}
+				}
 			})
-
-			//await interaction.followUp('Pong again!');
-		 });
-
-		
+		});
 	},
 };
 

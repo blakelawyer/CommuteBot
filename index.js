@@ -3,36 +3,40 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const { Client, Collection, Intents } = require('discord.js');
-
 const { token, dbParams } = require('./config.json');
-
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
-
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')); 
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 const { MessageActionRow, MessageButton } = require('discord.js');
 const bh = require('./events/buttonHandler.js');
 
 client.on('interactionCreate', async interaction => {
-	if (interaction.isButton()) { 
+	if (interaction.isButton()) {
 		bh.buttonHandler(interaction);
 	}
-	
-	
-	if (!interaction.isCommand()) return;
+	else if (interaction.isCommand()) { 
+	    const command = interaction.client.commands.get(interaction.commandName);
+	    if (!command) return;
 
-	if (interaction.commandName === 'buttontest') {
-		const row = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('Primary')
-					.setStyle('PRIMARY'),
-			);
-
-		await interaction.reply({ content: 'Buttons!', components: [row] });
+	    try {
+	    	command.execute(interaction);
+	    } catch (error) {
+	    	console.error(error);
+	    	interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	    }
 	}
+	// if (interaction.commandName === 'buttontest') {
+	// 	const row = new MessageActionRow()
+	// 		.addComponents(
+	// 			new MessageButton()
+	// 				.setCustomId('primary')
+	// 				.setLabel('Primary')
+	// 				.setStyle('PRIMARY'),
+	// 		);
+
+	// 	await interaction.reply({ content: 'Buttons!', components: [row] });
+	// }
 });
 
 for (const file of commandFiles) {
