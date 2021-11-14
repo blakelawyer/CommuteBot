@@ -4,4 +4,4 @@ node_js:
   - 16
 cache: npm
 script:
-  - bash ci/ci.sh
+  - cd ci && bash ci.sh
