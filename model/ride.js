@@ -10,12 +10,17 @@ const rideModel = new Schema({
   gulidId: String,
   driverMessageId: String,
   requestMessageId: String,
+  driverChannel: String,
+  riderChannel: String,
+  ticketChannelMsg: String,
   startLocation: String,
   endLocation: String,
   request: { type: Date, default: Date.now },
-  ackTime: Date,
-  pickupTime: Date,
-  dropoffTime: Date
+  ackTime: { type: Date, default: null },
+  pickupTime: { type: Date, default: null },
+  dropoffTime: { type: Date, default: null },
+  cancelTime: { type: Date, default: null },
+  ticketChannel: String
 },
 { 
     timestamps: true

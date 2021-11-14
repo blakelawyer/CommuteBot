@@ -1,5 +1,5 @@
 module.exports = {
     YELLOW: '#fcec03', 
-    RED: '',
-    GREEN: ''
+    RED: '#ff0000',
+    GREEN: '#51f542'
 }

@@ -23,15 +23,19 @@ module.exports = {
 		console.log("Making request")
 		const curr_loc = interaction.options.get("current_location").value;
 		const dest_loc = interaction.options.get("destination_location").value;
+		
+		// interaction.message.channel.id ??
+		const riderChan = interaction.channelId;
 
 		let ride = new Ride({ 
 			riderId: interaction.member.id,
 			driverId: null,
 			startLocation: curr_loc,
-			endLocation: dest_loc
+			endLocation: dest_loc,
+			driverChannel: null,
+			riderChannel: riderChan,
 		});
-
-		let embed = makeEmbed(ride);
+		let embed = makeEmbed(ride, interaction.member.displayAvatarURL());
 		let riderButtons = new MessageActionRow()
 		.addComponents(
 			new MessageButton()
@@ -41,9 +45,9 @@ module.exports = {
 		)
 		interaction.reply({
 			content: "Ride requested!  We'll let you know when a driver has been assigned.", 
-			embeds: [embed],
-			components: [riderButtons],
+			//embeds: [embed],
 			ephemeral: true,
+			components: [riderButtons],
 			fetchReply: true 
 		}).then((reply) => { 
 			console.log("Requested!")
@@ -67,7 +71,8 @@ module.exports = {
 							embeds: [embed],
 							components: [buttons]
 						}).then((driverMessage) => { 
-							ride.driverMessageId = driverMessage.id
+							ride.driverMessageId = driverMessage.id;
+							ride.driverChannel = chan.id;
 							ride.save();
 						})
 						break;
@@ -78,12 +83,13 @@ module.exports = {
 	},
 };
 
-function makeEmbed(ride) {
+function makeEmbed(ride, avUrl) {
 	let embed = new Discord.MessageEmbed();
     embed.setTitle("Ride Request");
     embed.setTimestamp();
     embed.setColor(colors.YELLOW);
     embed.setFooter("Comet Commute v1");
+	embed.setThumbnail(avUrl);
 	embed.addField("Ride ID", ride._id.toString());
 	embed.addField("Current Location", ride.startLocation);
 	embed.addField("Destination Location", ride.endLocation);

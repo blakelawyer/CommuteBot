@@ -16,8 +16,8 @@ module.exports = {
 			)
 		interaction.reply({
 			content: "This is a button test!", 
-			components: [buttonTest],
-			ephemeral: true
+			components: [buttonTest]
+			// ephemeral: true
 		})
 	}
 };
