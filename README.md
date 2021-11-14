@@ -8,6 +8,14 @@ Install dependencies: `npm install`
 
 Start the app: `node .`
 
+## Usage
+
+Riders can request a ride with the `/request` command in discord. Drivers will be able to accept a ride from the designated drivers channel.
+
+Once a driver accepts a ride, a private channel will be created for the Rider and Driver to communicate.  The Driver should be able to mark when they picked up the Rider, and when they dropped off the Rider.
+
+Drivers will be assigned a role by an administrator - there is currently no automated function to handle registration, although this could be added.
+
 ## Architecture
 
 ### Docker

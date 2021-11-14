@@ -10,7 +10,8 @@ docker push 397766053761.dkr.ecr.us-east-2.amazonaws.com/${tag}
 mkdir -p ~/.terraform.d/
 echo "{\"credentials\": {\"app.terraform.io\": {\"token\": \"$TF_API_TOKEN\"}}}" > ~/.terraform.d/credentials.tfrc.json
 
-cd ./terraform-ecr/
+cd ./terraform-app/
 echo "container_image = \"$tag\"" > travis.auto.tfvars
 
+terraform init
 terraform apply -auto-approve
