@@ -47,7 +47,6 @@ module.exports = {
 			fetchReply: true 
 		}).then((reply) => { 
 			console.log("Requested!")
-			console.log(reply)
 			ride.requestMessageId = reply.id
 			interaction.guild.channels.fetch()
 			.then((channels) => {
@@ -58,11 +57,11 @@ module.exports = {
 								new MessageButton()
 									.setCustomId("accept")
 									.setLabel("Take Ride")
-									.setStyle("PRIMARY"),
-								new MessageButton()
-									.setCustomId("reject")
-									.setLabel("Reject")
-									.setStyle("DANGER")
+									.setStyle("PRIMARY")
+								// new MessageButton()
+								// 	.setCustomId("reject")
+								// 	.setLabel("Reject")
+								// 	.setStyle("DANGER")
 							])
 						chan.send({
 							embeds: [embed],
