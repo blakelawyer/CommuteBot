@@ -4,4 +4,4 @@ node_js:
   - 16
 cache: npm
 script:
-  - echo "Hello!"
+  - echo "Hello again!"
