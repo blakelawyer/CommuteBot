@@ -2,6 +2,8 @@ dist: focal
 language: node_js
 node_js:
   - 16
+env:
+  - tf_version=1.0.10
 cache: npm
 script:
   - wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip
