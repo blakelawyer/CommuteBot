@@ -1,0 +1,17 @@
+[
+    {
+      "name": "${name}",
+      "image": "${image}",
+      "essential": true,
+      "cpu": ${cpu},
+      "memory": ${ram},
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-region": "${region}",
+          "awslogs-group": "${app_name}",
+          "awslogs-stream-prefix": "${app_name}"
+        }
+      }
+    }
+  ]
