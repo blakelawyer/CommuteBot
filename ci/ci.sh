@@ -3,7 +3,7 @@ set -e
 set -x
 
 commit_sha=$(git rev-parse --short HEAD)
-tag="comet-commute:${commit_sha}"
+tag="397766053761.dkr.ecr.us-east-2.amazonaws.com/comet-commute:${commit_sha}"
 bash build.sh $tag
 
 if [[ "$TRAVIS_BRANCH" != "main" ]]; then   
