@@ -4,4 +4,5 @@ node_js:
   - 16
 cache: npm
 script:
+  - pip3 install awscli
   - cd ci && bash ci.sh
