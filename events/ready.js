@@ -38,17 +38,7 @@ module.exports = {
 					if (!foundRidesCat) { 
 						console.log("Creating rides")
 						guild.channels.create('rides', { 
-							type: 'GUILD_CATEGORY', 
-							permissionOverwrites: [
-								{
-									id: '909112627777659000', //bot 
-									allow: ['VIEW_CHANNEL'],
-								},
-								{
-									id: guild.id,  //everyone
-									deny: ['VIEW_CHANNEL'],
-								},
-							],
+							type: 'GUILD_CATEGORY' 
 						})
 						.then((cat) => {
 							let rc = new RidesCategory({
