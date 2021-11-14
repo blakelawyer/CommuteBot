@@ -12,6 +12,5 @@ module.exports = {
             chan.delete();
         }
         await RidesCategory.deleteMany({ guildId: interaction.guild.id });
-        process.exit(1);
 	},
 };
