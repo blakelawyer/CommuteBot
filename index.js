@@ -3,7 +3,12 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const { Client, Collection, Intents } = require('discord.js');
-const { token, dbParams } = require('./config.json');
+const token = process.env.DISCORD_TOKEN;
+let dbParams = {};
+dbParams.user = process.env.DB_USER;
+dbParams.pass = process.env.DB_PASSWORD;
+dbParams.host = process.env.DB_HOST;
+dbParams.db = process.env.DATABASE;
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));

@@ -142,7 +142,13 @@ resource "aws_ecs_task_definition" "this" {
     "ram" = 512,
     "cpu" = 256
     "region" = data.aws_region.current.name,
-    "app_name" = local.app_name
+    "app_name" = local.app_name,
+    "DB_HOST" = var.db_host,
+    "DB_USER" = var.db_user,
+    "DB_PASSWORD" = var.db_password,
+    "DATABASE" = var.db_name,
+    "bot_token" = var.bot_token,
+    
   })
 
 }

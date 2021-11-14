@@ -8,7 +8,7 @@ mkdir -p ~/.terraform.d/
 echo "{\"credentials\": {\"app.terraform.io\": {\"token\": \"$TF_API_TOKEN\"}}}" > ~/.terraform.d/credentials.tfrc.json
 
 cd ./terraform-app/
-echo "container_image = \"$tag\"" > travis.auto.tfvars
+echo -e "container_image = \"$tag\"\ndiscord_token = \"$DISCORD_TOKEN\"\ndb_name = \"$DATABASE\"\ndb_password = \"$DB_PASSWORD\"\ndb_user = \"$DB_USER\"\ndb_host = \"$DB_HOST\"\n" > travis.auto.tfvars
 
 terraform init
 terraform apply -auto-approve

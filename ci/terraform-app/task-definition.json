@@ -5,6 +5,29 @@
       "essential": true,
       "cpu": ${cpu},
       "memory": ${ram},
+      "environment": [
+        {
+            "name": "DISCORD_TOKEN",
+            "value": "${bot_token}"
+        },
+        {
+            "name": "DB_USER",
+            "value": "${DB_USER}"
+        },
+        {
+            "name": "DB_PASSWORD",
+            "value": "${DB_PASSWORD}"
+        },
+        {
+            "name": "DATABASE",
+            "value": "${DATABASE}"
+        },
+        {
+            "name": "DB_HOST",
+            "value": "${DB_HOST}"
+        },
+        
+      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
