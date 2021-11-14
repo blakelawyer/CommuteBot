@@ -1,0 +1,11 @@
+{
+	"clientId": "909112627777659000",
+	"guildId": "909109793061482566",
+	"token": "OTA5MTEyNjI3Nzc3NjU5MDAw.YY_jHA.-grxviTw1kN1hBRgVt5y_w2GXTQ",
+	"dbParams": { 
+		"user": "commuteBot2",
+		"pass": "commutePassword",
+		"host": "commutebot.7sozq.mongodb.net",
+		"db": "commuteBot"
+	}
+}
