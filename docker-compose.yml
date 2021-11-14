@@ -1,7 +1,0 @@
-version: '3'
-services:
-  squadbot:
-    restart: always
-    environment:
-      botToken: NzM0NjAyMzQ2OTI3MjI2OTQw.XxUFvw.qcrSYwMeCv2HkzihQwFaOzlPgHE
-    build: .
